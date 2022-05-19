@@ -15,7 +15,8 @@
     "swagger-jsdoc": "^6.2.1",
     "swagger-ui-express": "^4.4.0",
     "winston": "^3.7.2",
-    "xmlhttprequest": "^1.8.0"
+    "xmlhttprequest": "^1.8.0",
+    "clean-css": "^5.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
