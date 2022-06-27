@@ -7,6 +7,7 @@
 import {assetHandler, getAssetInfo} from "../../handlers/assets/getAssetInfoHandler";
 import {AssetModelCar} from "../../../interfaces/Assets/Vehicles/AssetModelCar";
 import {serverAuthConfig} from "../../../serviceConfig";
+import {addNewAsset} from "../../handlers/assets/addNewAsset";
 
 const Joi = require('joi');
 
@@ -32,6 +33,44 @@ export const plugin = {
                 method: 'POST',
                 path: '/assets/get-asset-metadata',
                 handler: getAssetInfo,
+
+                options: {
+                    cors:true,
+                    auth:false,
+                    tags: ['assets', 'api', 'getAssetInfo'],
+                    description: "provide information on asset state",
+                    notes: ["asset state and metadata"],
+                    plugins: {
+                        'hapi-swagger': {
+                            payloadType: 'form'
+                        },
+                    },
+                    validate: {
+                        payload: Joi.object({
+                            licensePlate: Joi.string().max(10).required().description("car license plate")
+                        }),
+                    },
+                    // response: {
+                    //     // schema: {},
+                    //     // schema: Joi.object().tailor("AssetCarModel"),
+                    //
+                    //     status:
+                    //         {
+                    //             200: ["OK"]
+                    //         }
+                    //
+                    // }
+                }
+
+
+
+    }
+)
+        server.route(
+            {
+                method: 'POST',
+                path: '/assets/add-asset-metadata',
+                handler: addNewAsset,
 
                 options: {
                     cors:true,
